@@ -6,17 +6,22 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 
 
-
 path = './assessments'
-filelist = os.listdir(path)
+os.chdir(path)
 
-for file in filelist:
+folders = os.listdir()
+
+for folder in folders:
+
+        os.chdir(folder)
+        files = os.listdir()
         
+                     
         # Read files and convert to dataframe 
-        df_new = pd.read_csv(filename1)
+        df_new = pd.read_csv(files[0])
         print(df_new)
 
-        df_old = pd.read_csv(filename2)
+        df_old = pd.read_csv(files[1])
         print(df_old)
 
         # Slice the new dataframe into 3 sections
@@ -34,16 +39,16 @@ for file in filelist:
         fig.set_size_inches(11, 13)
 
         # Plot the new data
-        _ = plt.plot(df1['Domain'], df1['T score'], color='black', marker='.', markersize=12, label='June 2019')
+        _ = plt.plot(df1['Domain'], df1['T score'], color='black', marker='.', markersize=12)
         _ = plt.plot(df2['Domain'], df2['T score'], color='black', marker='.', markersize=12)
         _ = plt.plot(df3['Domain'], df3['T score'], color='black', marker='.', markersize=12)
-        dot = mlines.Line2D([], [], color='black', marker='.', markersize=12, label=new)
+        dot = mlines.Line2D([], [], color='black', marker='.', markersize=12, label='new')
 
         # Plot the old data
-        _ = plt.plot(df1old['Domain'], df1old['T score'], color='black', marker='^', markersize=10, linestyle='--', label='December 2018')
+        _ = plt.plot(df1old['Domain'], df1old['T score'], color='black', marker='^', markersize=10, linestyle='--')
         _ = plt.plot(df2old['Domain'], df2old['T score'], color='black', marker='^', markersize=10, linestyle='--')
         _ = plt.plot(df3old['Domain'], df3old['T score'], color='black', marker='^', markersize=10, linestyle='--')
-        tri = mlines.Line2D([], [], color='black', marker='^', markersize=10, label=old)
+        tri = mlines.Line2D([], [], color='black', marker='^', markersize=10, label='old')
 
         # Adjust plot settings to match PDDBI
         _ = plt.legend(handles=(dot, tri))
@@ -61,8 +66,11 @@ for file in filelist:
         _ = plt.annotate('Receptive/Expressive', (10.0, 98))
         _ = plt.annotate('Social Communication Abilities', (9.5, 96))
         _ = plt.tight_layout()
-        _ = plt.savefig(graph_name)
+
+        os.chdir('../../results')
+
+        _ = plt.savefig(folder + '.png')
         _ = plt.show()
         _ = plt.close()
 
-
+        os.chdir('../assessments')

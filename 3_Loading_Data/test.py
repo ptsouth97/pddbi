@@ -13,7 +13,7 @@ print("The files is the directory are:")
 print(what)
 print()
 
-path = './assessments/'
+path = './assessments'
 print("Changing directories...")
 os.chdir(path)
 
@@ -22,11 +22,13 @@ print("Now the current working directory is:")
 print(now)
 print()
 
-folders = os.listdir(now)
+folders = os.listdir()
 print("The folders in the current working directory are:")
 print(folders)
 print()
 
+print(folders[0])
+print(type(folders[0]))
 for folder in folders:
 
 	os.chdir(folder)
